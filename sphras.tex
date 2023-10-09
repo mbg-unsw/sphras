@@ -1,0 +1,138 @@
+% SPH R Appreciation Society "Packages of the month"
+% (c) 2023 Malcolm Gillies <malcolm.gillies@unsw.edu.au>
+% https://github.com/mbg-unsw/sphras
+%
+% This work is licensed under a
+% Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+% International Licence
+\documentclass[aspectratio=169,12pt]{beamer} % XXXX fix AR here
+\usepackage{pgfpages}
+\usepackage{fancyvrb}
+\usepackage{pgfplots}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
+%\usefonttheme{serif} % need this with Charter font
+\usetheme{auriga}  % using default now
+\usecolortheme{auriga}  % using default now
+%\usepackage[libertine]{libertine} % not using osf (old-style figures)
+%\usepackage[scale=0.9]{tgheros} % scale to match libertine
+%\usepackage[varqu,varl]{inconsolata}
+%\usepackage[libertine]{newtxmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{tikzpagenodes}
+\usepackage{natbib}
+\usepackage{gitinfo2}
+
+\pgfplotsset{compat=1.17}
+\hypersetup{pdfencoding=auto}
+
+\renewcommand{\gitMark}{\color{lightgray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
+
+%\renewcommand{\bibsection}{} % suppress "References" section
+
+%\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+%\setbeamercolor*{item}{fg=darkred}
+
+\title{SPH R Appreciation Society: Packages of the month}
+\author{Malcolm Gillies <malcolm.gillies@unsw.edu.au>}
+\institute{9 October 2023}
+
+\newif\ifsidebartheme
+\sidebarthemefalse
+
+\newdimen\contentheight
+\newdimen\contentwidth
+\newdimen\contentleft
+\newdimen\contentbottom
+\makeatletter
+\newcommand*{\calculatespace}{%
+    \contentheight=\paperheight%
+    \ifx\beamer@frametitle\@empty%
+        \setbox\@tempboxa=\box\voidb@x%
+      \else%
+        \setbox\@tempboxa=\vbox{%
+          \vbox{}%
+          {\parskip0pt\usebeamertemplate***{frametitle}}%
+        }%
+        \ifsidebartheme%
+          \advance\contentheight by-1em%
+        \fi%
+      \fi%
+    \advance\contentheight by-\ht\@tempboxa%
+    \advance\contentheight by-\dp\@tempboxa%
+    \advance\contentheight by-\beamer@frametopskip%
+    \ifbeamer@plainframe%
+    \contentbottom=0pt%
+    \else%
+    \advance\contentheight by-\headheight%
+    \advance\contentheight by\headdp%
+    \advance\contentheight by-\footheight%
+    \advance\contentheight by4pt%
+    \contentbottom=\footheight%
+    \advance\contentbottom by-4pt%
+    \fi%
+    \contentwidth=\paperwidth%
+    \ifbeamer@plainframe%
+    \contentleft=0pt%
+    \else%
+    \advance\contentwidth by-\beamer@rightsidebar%
+    \advance\contentwidth by-\beamer@leftsidebar\relax%
+    \contentleft=\beamer@leftsidebar%
+    \fi%
+}
+\makeatother
+
+\begin{document}
+
+\setbeamercolor{page number in head/foot}{fg=white}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\begin{itemize}
+		\item Changes in antibiotic use in 2020
+		\item Changes in antidepressant use in 2020
+		\item \emph{Why the changes?}
+		\item \emph{What happened exactly?}
+		\item \emph{How should we design future studies?}
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}{Study 1: PBS antibiotics in 2020}
+%\centering
+%\includegraphics{ref/latex-j01armap3-1.pdf}
+%\end{frame}
+
+\begin{frame}{Our experience so far}
+	\begin{itemize}
+		\item Interrupted time series analyses
+		\item Simple approaches like deleting or aggregating
+		\item TODO: Dealing with ``phases'' of the pandemic
+		\item TODO: revisit denominator data
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+	\begin{itemize}
+		\item Think about causal mechanisms carefully
+		\item Consider aggregate and disaggregate analyses
+		\item Things are unpredictable and keep changing
+		\item We need to share good practices
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Thanks}
+    \begin{itemize}
+        \item Australian Government Services Australia for providing the data
+	\item My co-authors, especially Juliana, Andrea and Helga
+	\item Melisa Litchfield for assisting with data access and ethics approval
+	\item All the other Medicines Intelligence Research Program people at SPH
+    \end{itemize}
+\end{frame}
+
+\end{document}
