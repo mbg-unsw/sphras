@@ -36,7 +36,7 @@
 %\setbeamertemplate{navigation symbols}{} % remove navigation symbols
 %\setbeamercolor*{item}{fg=darkred}
 
-\title{SPH R Appreciation Society: Packages of the month}
+\title{SPH R Appreciation Society:\\Packages of the month}
 \author{Malcolm Gillies <malcolm.gillies@unsw.edu.au>}
 \institute{9 October 2023}
 
@@ -102,17 +102,93 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{brms: What is it?}
+	\begin{itemize}
+		\item Bayesian modelling made easy
+		\item An \texttt{lme4}-style interface to Stan
+		\item \url{https://github.com/paul-buerkner/brms}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{brms: What's great?}
+	\begin{itemize}
+		\item Fit complex models:
+		\begin{itemize}
+			\item Censored, mixture, survival, smooth/spline, ...
+			\item \scriptsize{\url{https://paul-buerkner.github.io/brms/reference/brmsformula.html}}
+			\item \scriptsize{\url{https://paul-buerkner.github.io/brms/reference/brmsfamily.html}}
+		\end{itemize}
+		\item Fit ugly data
+		\item Better estimates
+		\item Large \emph{n}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{brms: What sucks}
+	\begin{itemize}
+		\item Sometimes Stan is hard to install
+		\begin{itemize}
+			\item Needs rtools and more...
+		\end{itemize}
+		\item Fitting models can be slow
+		\begin{itemize}
+			\item Minutes, hours, days...
+		\end{itemize}
+		\item You need to learn Bayesian things
+		\begin{itemize}
+			\item Priors, convergence, posterior checks
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{brms: Intros and tutorials}
+	\begin{itemize}
+		\item \scriptsize{\url{https://www.rensvandeschoot.com/tutorials/brms-started/}}
+		\item \scriptsize{\url{https://ourcodingclub.github.io/tutorials/brms/}}
+	\end{itemize}
+\end{frame}
+
 %\begin{frame}{Study 1: PBS antibiotics in 2020}
 %\centering
 %\includegraphics{ref/latex-j01armap3-1.pdf}
 %\end{frame}
 
-\begin{frame}{sf and tmap}
+\begin{frame}{sf and tmap: What are they?}
 	\begin{itemize}
-		\item What is it?
-		\item What's great?
-		\item What sucks?
-		\item How does it work?
+		\item sf
+		\begin{itemize}
+			\item read and write spatial data
+			\item \emph{i.e. shapefiles}
+			\item replaces obsolete packages: \texttt{sp},
+				\texttt{rgdal}, \texttt{maptools}
+		\end{itemize}
+		\item tmap
+		\begin{itemize}
+			\item draw maps, e.g. choropleths
+			\item alternative to \texttt{ggplot2}, \texttt{leaftlet}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{tmap: What's great?}
+	\begin{itemize}
+		\item nice defaults
+		\item can create static or interactive maps
+		\item easy to add ``basemaps'' with topography etc.
+		\item compatible with OpenStreetMap i.e. \texttt{library(osmdata)}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{sf and tmap: What sucks?}
+	\begin{itemize}
+		\item sf and tmap: can be hard to install
+		\item tmap: a little inflexible compared with \texttt{ggplot2}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{sf and tmap: Intros and tutorials}
+	\begin{itemize}
+		\item \scriptsize{\url{https://mharinga.github.io/choropleth.html}}
 	\end{itemize}
 \end{frame}
 
