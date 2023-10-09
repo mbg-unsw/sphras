@@ -2,7 +2,7 @@
 Fifteen minutes on some useful R packages.
 
 Delivered to the UNSW School of Population Health R Appreciation Society
-meeting on 9 Octboer 2023.
+meeting on 9 October 2023.
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
