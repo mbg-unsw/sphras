@@ -1,0 +1,139 @@
+% SPH R Appreciation Society "Packages of the month"
+% (c) 2024 Malcolm Gillies <malcolm.gillies@unsw.edu.au>
+% https://github.com/mbg-unsw/sphras
+%
+% This work is licensed under a
+% Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+% International Licence
+\documentclass[aspectratio=169,12pt]{beamer} % XXXX fix AR here
+\usepackage{pgfpages}
+\usepackage{fancyvrb}
+\usepackage{pgfplots}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
+%\usefonttheme{serif} % need this with Charter font
+\usetheme{auriga}  % using default now
+\usecolortheme{auriga}  % using default now
+%\usepackage[libertine]{libertine} % not using osf (old-style figures)
+%\usepackage[scale=0.9]{tgheros} % scale to match libertine
+%\usepackage[varqu,varl]{inconsolata}
+%\usepackage[libertine]{newtxmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{tikzpagenodes}
+\usepackage{natbib}
+\usepackage{gitinfo2}
+
+\pgfplotsset{compat=1.17}
+\hypersetup{pdfencoding=auto}
+
+\renewcommand{\gitMark}{\color{lightgray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
+
+%\renewcommand{\bibsection}{} % suppress "References" section
+
+%\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+%\setbeamercolor*{item}{fg=darkred}
+
+\title{SPH R Appreciation Society:\\Packages of the month}
+\author{Malcolm Gillies <malcolm.gillies@unsw.edu.au>}
+\institute{12 February 2024}
+
+\newif\ifsidebartheme
+\sidebarthemefalse
+
+\newdimen\contentheight
+\newdimen\contentwidth
+\newdimen\contentleft
+\newdimen\contentbottom
+\makeatletter
+\newcommand*{\calculatespace}{%
+    \contentheight=\paperheight%
+    \ifx\beamer@frametitle\@empty%
+        \setbox\@tempboxa=\box\voidb@x%
+      \else%
+        \setbox\@tempboxa=\vbox{%
+          \vbox{}%
+          {\parskip0pt\usebeamertemplate***{frametitle}}%
+        }%
+        \ifsidebartheme%
+          \advance\contentheight by-1em%
+        \fi%
+      \fi%
+    \advance\contentheight by-\ht\@tempboxa%
+    \advance\contentheight by-\dp\@tempboxa%
+    \advance\contentheight by-\beamer@frametopskip%
+    \ifbeamer@plainframe%
+    \contentbottom=0pt%
+    \else%
+    \advance\contentheight by-\headheight%
+    \advance\contentheight by\headdp%
+    \advance\contentheight by-\footheight%
+    \advance\contentheight by4pt%
+    \contentbottom=\footheight%
+    \advance\contentbottom by-4pt%
+    \fi%
+    \contentwidth=\paperwidth%
+    \ifbeamer@plainframe%
+    \contentleft=0pt%
+    \else%
+    \advance\contentwidth by-\beamer@rightsidebar%
+    \advance\contentwidth by-\beamer@leftsidebar\relax%
+    \contentleft=\beamer@leftsidebar%
+    \fi%
+}
+\makeatother
+
+\begin{document}
+
+\setbeamercolor{page number in head/foot}{fg=white}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}{tidyverts}
+	\begin{itemize}
+		\item What is it?
+		\item What's great?
+		\item What sucks?
+		\item How does it work?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{tidyverts: What is it?}
+	\begin{itemize}
+		\item \texttt{tsibble}, \texttt{feasts}, \texttt{fable}
+		\item Timeseries comes to the tidyverse
+		\item \url{https://tidyverts.org/}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{tidyverts: What's great?}
+	\begin{itemize}
+		\item tidyverse integration
+		\item Automation
+		\item Visualisation
+		\item Fit multiple series, models simultaneously
+		\item Friendly, responsive development team
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{tidyverts: What sucks}
+	\begin{itemize}
+		\item Anything that's not automatic can be harder
+		\item Some methods not implemented, need to go back to \texttt{ts} etc.
+		\item Occasional bug
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{tidyverts: Intros and tutorials}
+	\begin{itemize}
+		\item \scriptsize{\url{https://robjhyndman.com/}}
+		\item \scriptsize{\url{https://raw.githubusercontent.com/robjhyndman/tidyverts2021/main/rba2023.pdf}}
+		\item \scriptsize{\url{https://otexts.com/fpp3/}}
+	\end{itemize}
+\end{frame}
+
+\end{document}
