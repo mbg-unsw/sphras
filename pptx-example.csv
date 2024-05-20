@@ -1,0 +1,15 @@
+Phase,Type,Rate
+Initiation,Trauma,25
+Initiation,C-section,20
+Initiation,Procedures,12
+Initiation,ED only,6
+Initiation,Medical via ED,5
+Initiation,Medical no ED,4
+Initiation,Spontaneous delivery,1
+LTOU,Trauma,2.3
+LTOU,C-section,0.07
+LTOU,Procedures,0.6
+LTOU,ED only,1.0
+LTOU,Medical via ED,3.5
+LTOU,Medical no ED,0.8
+LTOU,Spontaneous delivery,0.35

@@ -1,0 +1,183 @@
+% SPH R Appreciation Society "Packages of the month"
+% (c) 2024 Malcolm Gillies <malcolm.gillies@unsw.edu.au>
+% https://github.com/mbg-unsw/sphras
+%
+% This work is licensed under a
+% Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+% International Licence
+\documentclass[aspectratio=169,12pt]{beamer} % XXXX fix AR here
+\usepackage{pgfpages}
+\usepackage{fancyvrb}
+\usepackage{pgfplots}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
+%\usefonttheme{serif} % need this with Charter font
+\usetheme{auriga}  % using default now
+\usecolortheme{auriga}  % using default now
+%\usepackage[libertine]{libertine} % not using osf (old-style figures)
+%\usepackage[scale=0.9]{tgheros} % scale to match libertine
+%\usepackage[varqu,varl]{inconsolata}
+%\usepackage[libertine]{newtxmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{tikzpagenodes}
+\usepackage{natbib}
+\usepackage{gitinfo2}
+\usepackage{xurl} % word wrap URLs
+
+\pgfplotsset{compat=1.17}
+\hypersetup{pdfencoding=auto}
+
+\renewcommand{\gitMark}{\color{lightgray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
+
+%\renewcommand{\bibsection}{} % suppress "References" section
+
+%\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+%\setbeamercolor*{item}{fg=darkred}
+
+\title{SPH R Appreciation Society:\\Powerpoint graphics in R}
+\author{Malcolm Gillies <malcolm.gillies@unsw.edu.au>}
+\institute{20 May 2024}
+
+\newif\ifsidebartheme
+\sidebarthemefalse
+
+\newdimen\contentheight
+\newdimen\contentwidth
+\newdimen\contentleft
+\newdimen\contentbottom
+\makeatletter
+\newcommand*{\calculatespace}{%
+    \contentheight=\paperheight%
+    \ifx\beamer@frametitle\@empty%
+        \setbox\@tempboxa=\box\voidb@x%
+      \else%
+        \setbox\@tempboxa=\vbox{%
+          \vbox{}%
+          {\parskip0pt\usebeamertemplate***{frametitle}}%
+        }%
+        \ifsidebartheme%
+          \advance\contentheight by-1em%
+        \fi%
+      \fi%
+    \advance\contentheight by-\ht\@tempboxa%
+    \advance\contentheight by-\dp\@tempboxa%
+    \advance\contentheight by-\beamer@frametopskip%
+    \ifbeamer@plainframe%
+    \contentbottom=0pt%
+    \else%
+    \advance\contentheight by-\headheight%
+    \advance\contentheight by\headdp%
+    \advance\contentheight by-\footheight%
+    \advance\contentheight by4pt%
+    \contentbottom=\footheight%
+    \advance\contentbottom by-4pt%
+    \fi%
+    \contentwidth=\paperwidth%
+    \ifbeamer@plainframe%
+    \contentleft=0pt%
+    \else%
+    \advance\contentwidth by-\beamer@rightsidebar%
+    \advance\contentwidth by-\beamer@leftsidebar\relax%
+    \contentleft=\beamer@leftsidebar%
+    \fi%
+}
+\makeatother
+
+\begin{document}
+
+\setbeamercolor{page number in head/foot}{fg=white}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}{officer/rvg for output to PowerPoint slides}
+	\begin{itemize}
+		\item What is it?
+		\item What's great?
+		\item What sucks?
+		\item How does it work?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{But first a digression about vector graphics\dots}
+	\begin{itemize}
+		\item Raster graphics (PNG, GIF, JPG) have a fixed resolution
+		\item \emph{Changing the size or medium loses quality}
+		\item Vector graphics are based on geometrical shapes, not pixels
+		\item \emph{Great for sharp graphs and diagrams, not for images}
+		\item \emph{You can edit vector graphics with Inkscape (free)}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Which vector graphics file format?}
+	\center
+	\begin{tabular}{|l|l|}
+	\hline
+	SVG & A standard, and quite a good one! \\
+	\hline
+	PDF & Widely supported and functional \\
+	\hline
+	EMF & Microsoft's own standard, but terrible \\
+	\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Why not PDF?}
+	\begin{itemize}
+		\item No support for in-line PDF graphics in MS Word
+		\item Some journals don't accept it for figures etc
+		\item Some coauthors don't know how to edit it
+		\item \emph{But I suggest you use PDF if you can}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Enter RVG\dots}
+	\begin{itemize}
+		\item Microsoft's new vector graphics format
+		\item Good quality graphics
+		\item \emph{Not widely known or supported by third parties}
+		\item \emph{No stand-alone file format}
+		\item \emph{Implementation in MS Word is half-baked}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Solution: Powerpoint + RVG}
+	\begin{itemize}
+		\item R graphical output $\rightarrow$ PPTX
+		\item Easy to edit and annotate
+		\item Can cut and paste into Word
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{officer/rvg: What is it?}
+	\begin{itemize}
+		\item \texttt{officer}, a package for writing MS Office files
+		\item \texttt{rvg}, additional support for output to RVG
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{officer/rvg: What's great?}
+	\begin{itemize}
+		\item Works pretty much like other R graphical devices
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{officer/rvg: What sucks}
+	\begin{itemize}
+		\item Font handling can be tricky
+		\item Still one or two bugs e.g. text alignment
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{officer/rvg: Intros and tutorials}
+	\begin{itemize}
+		\item \scriptsize{\url{https://www.pipinghotdata.com/posts/2020-09-22-exporting-editable-ggplot-graphics-to-powerpoint-with-officer-and-purrr/}}
+		\item \scriptsize{\url{https://www.apreshill.com/blog/2021-07-officedown/}}
+	\end{itemize}
+\end{frame}
+
+\end{document}
