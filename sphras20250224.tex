@@ -1,0 +1,242 @@
+% SPH R Appreciation Society "Packages of the month"
+% (c) 2025 Malcolm Gillies <malcolm.gillies@unsw.edu.au>
+% https://github.com/mbg-unsw/sphras
+%
+% This work is licensed under a
+% Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+% International Licence
+\documentclass[aspectratio=169,12pt]{beamer} % XXXX fix AR here
+\usepackage{pgfpages}
+\usepackage{fancyvrb}
+\usepackage{pgfplots}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{textcomp}
+%\usefonttheme{serif} % need this with Charter font
+\usetheme{auriga}  % using default now
+\usecolortheme{auriga}  % using default now
+%\usepackage[libertine]{libertine} % not using osf (old-style figures)
+%\usepackage[scale=0.9]{tgheros} % scale to match libertine
+%\usepackage[varqu,varl]{inconsolata}
+%\usepackage[libertine]{newtxmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{tikzpagenodes}
+\usepackage{natbib}
+\usepackage{gitinfo2}
+\usepackage{xurl} % word wrap URLs
+\usepackage{listings}
+
+\lstset{ 
+  language=R,                     % the language of the code
+  basicstyle=\scriptsize\ttfamily, % the size of the fonts that are used for the code
+  %numbers=left,                   % where to put the line-numbers
+  %numberstyle=\tiny\color{blue},  % the style that is used for the line-numbers
+  %stepnumber=1,                   % the step between two line-numbers. If it is 1, each line
+                                  % will be numbered
+  %numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  %frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{green},   % comment style
+  stringstyle=\color{green}      % string literal style
+} 
+
+\pgfplotsset{compat=1.17}
+\hypersetup{pdfencoding=auto}
+
+\renewcommand{\gitMark}{\color{lightgray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
+
+%\renewcommand{\bibsection}{} % suppress "References" section
+
+%\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+%\setbeamercolor*{item}{fg=darkred}
+
+\title{SPH R Appreciation Society:\\Small cell suppression}
+\author{Malcolm Gillies <malcolm.gillies@unsw.edu.au>}
+\institute{25 February 2025}
+
+\newif\ifsidebartheme
+\sidebarthemefalse
+
+\newdimen\contentheight
+\newdimen\contentwidth
+\newdimen\contentleft
+\newdimen\contentbottom
+\makeatletter
+\newcommand*{\calculatespace}{%
+    \contentheight=\paperheight%
+    \ifx\beamer@frametitle\@empty%
+        \setbox\@tempboxa=\box\voidb@x%
+      \else%
+        \setbox\@tempboxa=\vbox{%
+          \vbox{}%
+          {\parskip0pt\usebeamertemplate***{frametitle}}%
+        }%
+        \ifsidebartheme%
+          \advance\contentheight by-1em%
+        \fi%
+      \fi%
+    \advance\contentheight by-\ht\@tempboxa%
+    \advance\contentheight by-\dp\@tempboxa%
+    \advance\contentheight by-\beamer@frametopskip%
+    \ifbeamer@plainframe%
+    \contentbottom=0pt%
+    \else%
+    \advance\contentheight by-\headheight%
+    \advance\contentheight by\headdp%
+    \advance\contentheight by-\footheight%
+    \advance\contentheight by4pt%
+    \contentbottom=\footheight%
+    \advance\contentbottom by-4pt%
+    \fi%
+    \contentwidth=\paperwidth%
+    \ifbeamer@plainframe%
+    \contentleft=0pt%
+    \else%
+    \advance\contentwidth by-\beamer@rightsidebar%
+    \advance\contentwidth by-\beamer@leftsidebar\relax%
+    \contentleft=\beamer@leftsidebar%
+    \fi%
+}
+\makeatother
+
+\begin{document}
+
+\setbeamercolor{page number in head/foot}{fg=white}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}{Small cell suppression}
+	\begin{itemize}
+		\item What even is it?
+		\item What packages are available
+		\item Quick \texttt{easySdcTable} walkthrough
+		\item Work in progress
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Privacy, confidentiality, disclosure, reidentification}
+	\begin{itemize}
+		\item Privacy act requirements for `de-identification'
+		\item Harm due to disclosure of personal information
+		\item Data custodian requirements
+		\item AIHW/ABS requirements
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Statistical disclosure control}
+	\begin{itemize}
+		\item Deidentification, confidentialisation, ...
+		\item Methods to achieve this aim include:
+		\item \emph{Small cell suppression}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Rule of 6 (or 5, or 10, ...)}
+	\center
+	\begin{tabular}{lr}
+	Age cat & Count \\
+	\hline
+	15-19 & 16 \\
+	20-24 & 8 \\
+	25-29 & \colorbox{orange}{3} \\
+	30-34 & \colorbox{orange}{4} \\
+	Total & 31 \\
+	\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Secondary suppression}
+	\center
+	\begin{tabular}{lrrr}
+	& Male & Female & Total \\
+	Age cat & Count & Count & Count\\
+	\hline
+	15-19 & 16 & 0 & 16 \\
+	20-24 & 8  & 10 & 18\\
+	25-29 & \colorbox{orange}{3}  & 8 & 11 \\
+	30-34 & \colorbox{orange}{4} & 5 & 9 \\
+	Total & 31  & 23 & 54 \\
+	\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{There's a package (or two) for that!}
+	\begin{itemize}
+		\item GaussSuppression
+		\item sdcTable
+		\item easySdcTable
+		\item pTable
+		\item ACRO-R
+		\item cellKey
+		\item modulartabler
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{easySdcTable (1)}
+\begin{lstlisting}[language=R]
+> agesex
+# A tibble: 8 × 3
+  agecat sex    count
+  <chr>  <chr>  <dbl>
+1 15-19  Male      16
+2 20-24  Male       8
+3 25-29  Male       3
+4 30-34  Male       4
+5 15-19  Female     0
+6 20-24  Female    10
+7 25-29  Female     8
+8 30-34  Female     5
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{easySdcTable (2)}
+\begin{lstlisting}[language=R]
+> pivot_wider(agesex, id_cols=agecat, names_from=sex,
+              values_from=count)
+# A tibble: 4 × 3
+  agecat  Male Female
+  <chr>  <dbl>  <dbl>
+1 15-19     16      0
+2 20-24      8     10
+3 25-29      3      8
+4 30-34      4      5
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{easySdcTable (3)}
+\begin{lstlisting}[language=R]
+> agesex.p <- ProtectTable(agesex, dimVar=c("agecat", "sex"),
+              freqVar=c("count"), maxN=5, protectZeros=FALSE)
+> pivot_wider(agesex.p$data, id_cols=agecat, names_from=sex,
+              values_from=suppressed)
+# A tibble: 5 × 4
+  agecat Total Female  Male
+  <chr>  <dbl>  <dbl> <dbl>
+1 Total     54     23    31
+2 15-19     16      0    16
+3 20-24     18     10     8
+4 25-29     11     NA    NA
+5 30-34      9     NA    NA
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Next steps}
+	\begin{itemize}
+		\item easySdcTable + gtSummary = Table 1 !?!?
+	\end{itemize}
+\end{frame}
+
+\end{document}
